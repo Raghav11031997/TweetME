@@ -15,7 +15,7 @@ public class CreateTweet {
 
     public String createTweet(String tweet) throws TwitterException {
         Twitter twitter = getTwitterinstance();
-        Status status = twitter.updateStatus("Wimbledon");
+        Status status = twitter.updateStatus("MY TWEET");
         return status.getText();
     }
 }
