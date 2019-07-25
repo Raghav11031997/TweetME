@@ -1,5 +1,6 @@
 package com.khoros.tweetme;
 
+import com.khoros.tweetme.CONTROLLER.HelloWorldResource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

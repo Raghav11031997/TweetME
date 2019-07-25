@@ -1,5 +1,6 @@
 package com.khoros.tweetme;
 
+import com.khoros.tweetme.CONTROLLER.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import twitter4j.Twitter;
