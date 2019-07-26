@@ -20,6 +20,7 @@
 	<profile>
 		<id>dev</id>
 		<build>
+			<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
@@ -31,9 +32,9 @@
 							</goals>
 							<configuration>
 								<tasks>
-									<delete file="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/dummy.yml"/>
-									<copy file="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/yamlserver.yml"
-										  tofile="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/dummy.yml"/>
+									<delete file="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/dummy.yml"/>
+									<copy file="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/myfile.yml"
+										  tofile="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/dummy.yml"/>
 								</tasks>
 							</configuration>
 						</execution>
@@ -60,15 +61,19 @@
 					</executions>
 				</plugin>
 			</plugins>
+			</pluginManagement>
 		</build>
 	</profile>
 
 		<profile>
 			<id>test</id>
 			<build>
+				<pluginManagement>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
 						<executions>
 							<execution>
 								<phase>test</phase>
@@ -77,9 +82,9 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete file="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/dummy.yml"/>
-										<copy file="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/yaml2.yml"
-											  tofile="/Users/akash.navani/IdeaProjects/tweeter/src/main/resources/dummy.yml"/>
+										<delete file="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/dummy.yml"/>
+										<copy file="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/notmyfile.yml"
+											  tofile="/Users/raghav.nagarajan/Downloads/TweetME/src/main/resources/dummy.yml"/>
 									</tasks>
 								</configuration>
 							</execution>
@@ -106,6 +111,7 @@
 						</executions>
 					</plugin>
 				</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 	</profiles>

@@ -1,10 +1,11 @@
 package com.khoros.tweetme.CONTROLLER;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.khoros.tweetme.MODELS.PojoResponse;
 import com.khoros.tweetme.SERVICE.Serv_Contr_Inter;
 import com.khoros.tweetme.SERVICE.Serv_Factory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.*;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -12,6 +13,7 @@ import twitter4j.TwitterException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class HelloWorldResource {
 
     private Twitter twitter;
 
-    private static Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
+    private static Logger logger = LogManager.getLogger(HelloWorldResource.class);
 
     public HelloWorldResource(Twitter twitter) {
         this.twitter = twitter;
@@ -34,8 +36,22 @@ public class HelloWorldResource {
         logger.info("GET REQUEST");
 
         try {
+
             final List<Status> statuses = twitter.getHomeTimeline();
-            return Response.ok(statuses).build();
+            final List<PojoResponse> pojoResponses = new ArrayList<>();
+            for(Status status : statuses){
+                PojoResponse pojoResponse = new PojoResponse();
+
+                pojoResponse.setName(status.getUser().getName());
+                pojoResponse.setHandle(status.getUser().getScreenName());
+                pojoResponse.setMessage(status.getText());
+                pojoResponse.setCreatedAt(String.valueOf(status.getCreatedAt()));
+                pojoResponse.setProfImageURL(status.getUser().getProfileImageURL());
+
+                pojoResponses.add(pojoResponse);
+            }
+
+            return Response.ok(pojoResponses).build();
         }
         catch (TwitterException e){
             logger.error(e.getErrorMessage(), e);
@@ -45,13 +61,14 @@ public class HelloWorldResource {
 
     @POST
     @Path("/post")
-    public Response doPost(String twt) throws TwitterException {
+    public Response doPost(String twt) {
 
         logger.info("POST REQUEST");
 
 
         try{
             Status status = twitter.updateStatus(twt);
+
             return Response.ok(status).build();
         }
         catch (TwitterException e){
