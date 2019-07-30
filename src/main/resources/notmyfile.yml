@@ -1,0 +1,11 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 9000
+  adminConnectors:
+    - type: http
+      port: 9001
+consumerKey : zbmfD46XNdUBEyjx4iTmzJgXe
+consumerSecret : SEr8nv4y6hY8g9uvSnVCkzbqE2gMJTeYut4Iia7phm5eTBYPlX
+accessToken : 2251118479-mpGmkKhnD6grs34CNgVaFzp2DMHHVyXq5TbzK1g
+accessTokenSecret : 6UIqLeFqOvEhzQmNXbk3ZUs5hfex5xRdLMMkgJXDQsNVP
