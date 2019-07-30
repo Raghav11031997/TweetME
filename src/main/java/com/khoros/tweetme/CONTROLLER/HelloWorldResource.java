@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Path("/twitter")
 @Produces({ MediaType.APPLICATION_JSON})
@@ -25,8 +26,10 @@ public class HelloWorldResource {
 
     private static Logger logger = LogManager.getLogger(HelloWorldResource.class);
 
-    public HelloWorldResource(Twitter twitter) {
+    long cacheTime;
+    public HelloWorldResource(Twitter twitter, long cacheTime) {
         this.twitter = twitter;
+        this.cacheTime = cacheTime;
     }
 
     @GET
@@ -102,5 +105,23 @@ public class HelloWorldResource {
     public HashMap allSocial() {
         Serv_Contr_Inter obj = Serv_Factory.getServ();
         return obj.DataVal();
+    }
+
+    @Path("/filter")
+    @GET
+    public Response doFilter() throws TwitterException {
+        logger.info("GET REQUEST");
+        Serv_Contr_Inter serv_contr_inter = Serv_Factory.getServ();
+        Stream<PojoResponse> filteredPojo= serv_contr_inter.getFilter(twitter);
+        return Response.ok(filteredPojo).build();
+    }
+
+    @Path("/cache")
+    @GET
+    public Response cache() throws TwitterException {
+
+        Serv_Contr_Inter serv_contr_inter = Serv_Factory.getServ();
+        List<PojoResponse> cachedResponse = serv_contr_inter.getCachedTimeline(twitter, cacheTime);
+        return Response.ok(cachedResponse).build();
     }
 }

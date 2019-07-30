@@ -24,9 +24,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         cb.setOAuthAccessToken(helloWorldConfiguration.getAccessToken());
         cb.setOAuthAccessTokenSecret(helloWorldConfiguration.getAccessTokenSecret());
 
+        long cacheTime = helloWorldConfiguration.getCacheTime();
+
         TwitterFactory twitterFactory = new TwitterFactory(cb.build());
         Twitter twitter = twitterFactory.getInstance();
-        final HelloWorldResource hl = new HelloWorldResource(twitter);
+        final HelloWorldResource hl = new HelloWorldResource(twitter, cacheTime);
         environment.jersey().register(hl);
 
     }

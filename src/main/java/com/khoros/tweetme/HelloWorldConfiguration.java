@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+
 public class HelloWorldConfiguration extends Configuration {
 
     @NotEmpty
@@ -18,6 +20,9 @@ public class HelloWorldConfiguration extends Configuration {
 
     @NotEmpty
     private String accessTokenSecret;
+
+    @NotNull
+    private long cacheTime;
 
 
     @JsonProperty
@@ -58,5 +63,9 @@ public class HelloWorldConfiguration extends Configuration {
     public void setAccessTokenSecret(String accessTokenSecret){
         this.accessTokenSecret = accessTokenSecret;
     }
+
+    public long getCacheTime() { return cacheTime; }
+
+    public void setCacheTime(long cacheTime) { this.cacheTime = cacheTime; }
 
 }
